@@ -9,6 +9,8 @@ class Shopping extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $table = 'shopping';
 
     protected $fillable = [

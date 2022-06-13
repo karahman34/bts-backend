@@ -23,6 +23,13 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                if ($request->is('api/*') || $request->wantsJson()) {
+                    return response()->json([
+                        'ok' => false,
+                        'msg' => 'Only for guest users'
+                    ], 403);
+                }
+
                 return redirect(RouteServiceProvider::HOME);
             }
         }
