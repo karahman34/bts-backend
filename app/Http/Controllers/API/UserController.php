@@ -28,20 +28,23 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $payload = $request->validate([
-            'username' => 'required|string',
-            'email' => 'required|email',
-            'encrypted_password' => 'required|string',
-            'phone' => 'required|string',
-            'address' => 'required|string',
-            'city' => 'required|string',
-            'country' => 'required|string',
-            'name' => 'required|string',
-            'postcode' => 'required|string',
+            'user' => 'required|array',
+            'user.username' => 'required|string',
+            'user.email' => 'required|email',
+            'user.encrypted_password' => 'required|string',
+            'user.phone' => 'required|string',
+            'user.address' => 'required|string',
+            'user.city' => 'required|string',
+            'user.country' => 'required|string',
+            'user.name' => 'required|string',
+            'user.postcode' => 'required|string',
         ]);
 
         DB::beginTransaction();
 
         try {
+            $payload = $payload['user'];
+
             $existUser = User::where([
                 'email' => $payload['email']
             ])->first();
@@ -74,6 +77,7 @@ class UserController extends Controller
             return response()->json([
                 'ok' => false,
                 'msg' => 'Failed to register user',
+                'e' => $th->getMessage(),
             ], 500);
         }
     }
