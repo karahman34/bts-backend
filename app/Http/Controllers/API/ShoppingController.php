@@ -28,6 +28,13 @@ class ShoppingController extends Controller
         try {
             $shopping = Shopping::find($shoppingId);
 
+            if (!$shopping) {
+                return response()->json([
+                    'ok' => false,
+                    'msg' => 'Shopping data not found',
+                ], 404);
+            }
+
             return new ShoppingResource($shopping);
         } catch (\Throwable $th) {
             return response()->json([
