@@ -19,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 require_once __DIR__ . '/api/users.php';
+require_once __DIR__ . '/api/shopping.php';
