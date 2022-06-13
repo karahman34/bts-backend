@@ -20,7 +20,7 @@ class UserController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'ok' => false,
-                'msg' => 'Failed to register user',
+                'msg' => 'Failed to load user data',
             ], 500);
         }
     }
